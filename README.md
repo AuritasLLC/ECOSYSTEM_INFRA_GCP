@@ -1,7 +1,9 @@
 # ASM+ Google Cloud Marketplace
 
 <p align="center">
-  <img src="assets/asm-plus-logo.png" alt="Auritas Storage Manager (ASM+) logo" width="180">
+  <img src="assets/auritas-logo.png" alt="Auritas logo" height="90" align="middle">
+  &nbsp;&nbsp;&nbsp;
+  <img src="assets/asm-plus-logo.png" alt="Auritas Storage Manager (ASM+) logo" height="90" align="middle">
 </p>
 
 This public repository contains customer-facing deployment and operational
