@@ -22,6 +22,8 @@ application services. The customer retains control of the infrastructure,
 application data, networking, secrets, backups, scaling, and Google Cloud
 resource costs.
 
+## Core API and Integrations
+
 ASM Storage API is the central application API. Optional SAP Business and SAP
 SuccessFactors connectors integrate with customer-approved systems and
 credentials.
