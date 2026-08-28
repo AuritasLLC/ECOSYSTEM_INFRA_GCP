@@ -7,9 +7,6 @@ documentation for **Auritas Storage Manager (ASM+)** on Google Cloud.
 - [Example Infrastructure Manager inputs](examples/asm-plus.tfvars.example)
 - [Security and support](SECURITY.md)
 
-Cloud Marketplace listing:
-[Auritas Storage Manager (ASM+)](https://console.cloud.google.com/marketplace/product/auritas-asmplus-public/asm-plus)
-
 The deployable Terraform module, Helm chart, and container images are released
 and validated through Google Cloud Marketplace. This repository does not
 contain credentials, customer data, Terraform state, or private application
