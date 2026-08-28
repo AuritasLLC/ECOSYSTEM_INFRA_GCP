@@ -4,7 +4,7 @@
 *.tfvars
 !*.tfvars.example
 .terraform/
-.terraform.lock.hcl
+!terraform/marketplace_test.tfvars
 .env
 .env.*
 *.pem

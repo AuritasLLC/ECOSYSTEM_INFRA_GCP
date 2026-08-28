@@ -81,7 +81,8 @@ machine types such as T2A or Axion are not supported by this release.
 | `cloudsql_availability_type` | `ZONAL` | Use `REGIONAL` when high availability is required. |
 | `manage_dns_records` | `false` | Create A records in an existing Cloud DNS zone. |
 | `dns_managed_zone_name` | None | Required only when `manage_dns_records=true`. |
-| `enable_optional_modules` | `false` | Enable the SAP Business and SAP SuccessFactors APIs together. |
+| `enable_sap_business_api` | `false` | Enable the optional SAP Business API. |
+| `enable_successfactors_api` | `false` | Enable the optional SAP SuccessFactors API. |
 
 ### Advanced inputs
 
@@ -105,13 +106,19 @@ machine types such as T2A or Axion are not supported by this release.
 | `cloudsql_database` | `auritasdemo` | ASM+ database name. |
 | `cloudsql_user` | `auritas` | ASM+ database user. |
 | `cloudsql_disk_size_gb` | `20` | Initial Cloud SQL SSD size; automatic growth is enabled. |
-| `sap_basic_auth_users_json` | `{}` | Sensitive JSON consumed by the optional SAP Business API. |
-| `sf_managed_users_json` | `{}` | Sensitive JSON consumed by the optional SAP SuccessFactors API. |
+| `sap_basic_auth_users_json` | `{}` | Advanced SAP Business API credential JSON; a supplied value is retained in Terraform state. |
+| `sf_managed_users_json` | `{}` | Advanced SAP SuccessFactors API credential JSON; a supplied value is retained in Terraform state. |
 
 Network CIDRs must not overlap networks that need connectivity to ASM+.
 Marketplace service labels, chart references, and image references are release
 inputs managed by Google Cloud Marketplace and must not be overridden by the
 customer.
+
+Leave both connector JSON inputs at `{}` during Marketplace deployment whenever
+possible. Configure customer-approved connector credentials after deployment
+through the documented Secret Manager workflow with Auritas support. If either
+input is supplied to Terraform, protect the Infrastructure Manager state as a
+sensitive asset and never place the value in source control or command history.
 
 ## 4. Deploy from Google Cloud Marketplace
 
@@ -221,6 +228,19 @@ kubectl -n "ASMPLUS_NAMESPACE" get \
 
 All required Pods should become `Ready`, both Helm releases should be
 deployed, and the `Application` resource should report the approved version.
+
+Verify that each running container resolves to an immutable registry digest:
+
+```bash
+kubectl -n "ASMPLUS_NAMESPACE" get pods \
+  -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{range .status.containerStatuses[*]}{"  "}{.name}{": "}{.imageID}{"\n"}{end}{end}'
+```
+
+Every application image ID must include `@sha256:`. The Marketplace release
+process pins each source image by digest while exposing the approved release
+track and exact version. Do not override the Marketplace-managed image
+repositories or tags. If an image is missing a digest or does not match the
+approved release, stop validation and contact Auritas support.
 
 ## 8. DNS and TLS
 

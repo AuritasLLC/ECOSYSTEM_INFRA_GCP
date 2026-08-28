@@ -1,0 +1,25 @@
+postgresql:
+  enabled: false
+
+asm-api:
+  enabled: true
+auth-api:
+  enabled: true
+asm-plus-api:
+  enabled: true
+front-auth:
+  enabled: true
+front-asm-plus:
+  enabled: true
+front-viewer:
+  enabled: true
+api-sap:
+  enabled: ${enable_sap_business_api}
+api-sf:
+  enabled: ${enable_successfactors_api}
+
+migrations:
+  auth:
+    enabled: false
+  asmPlus:
+    enabled: false

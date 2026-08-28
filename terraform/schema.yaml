@@ -1,0 +1,61 @@
+images:
+  asmplus/api-asm:
+    variables:
+      api_asm_image_repo:
+        type: REPO_WITH_REGISTRY_WITH_NAME
+      api_asm_image_tag:
+        type: TAG
+  asmplus/api-auth:
+    variables:
+      api_auth_image_repo:
+        type: REPO_WITH_REGISTRY_WITH_NAME
+      api_auth_image_tag:
+        type: TAG
+  asmplus/api-asm-plus:
+    variables:
+      api_asm_plus_image_repo:
+        type: REPO_WITH_REGISTRY_WITH_NAME
+      api_asm_plus_image_tag:
+        type: TAG
+  asmplus/front-auth:
+    variables:
+      front_auth_image_repo:
+        type: REPO_WITH_REGISTRY_WITH_NAME
+      front_auth_image_tag:
+        type: TAG
+  asmplus/front-asm-plus:
+    variables:
+      front_asm_plus_image_repo:
+        type: REPO_WITH_REGISTRY_WITH_NAME
+      front_asm_plus_image_tag:
+        type: TAG
+  asmplus/front-viewer:
+    variables:
+      front_viewer_image_repo:
+        type: REPO_WITH_REGISTRY_WITH_NAME
+      front_viewer_image_tag:
+        type: TAG
+  asmplus/api-sap:
+    variables:
+      api_sap_image_repo:
+        type: REPO_WITH_REGISTRY_WITH_NAME
+      api_sap_image_tag:
+        type: TAG
+  asmplus/api-sf:
+    variables:
+      api_sf_image_repo:
+        type: REPO_WITH_REGISTRY_WITH_NAME
+      api_sf_image_tag:
+        type: TAG
+  asmplus/cloud-sql-proxy:
+    variables:
+      cloud_sql_proxy_image_repo:
+        type: REPO_WITH_REGISTRY_WITH_NAME
+      cloud_sql_proxy_image_tag:
+        type: TAG
+  asmplus/postgres:
+    variables:
+      postgres_image_repo:
+        type: REPO_WITH_REGISTRY_WITH_NAME
+      postgres_image_tag:
+        type: TAG

@@ -1,0 +1,255 @@
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: asm-plus-display
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  info:
+    title: ASM+
+    source:
+      sourceType: git
+      repo: https://github.com/AuritasLLC/ECOSYSTEM_INFRA_GCP
+  ui:
+    input:
+      variables:
+        admin_email:
+          name: admin_email
+          title: Initial administrator email
+        api_asm_image_repo:
+          name: api_asm_image_repo
+          title: Api Asm Image Repo
+          invisible: true
+        api_asm_image_tag:
+          name: api_asm_image_tag
+          title: Api Asm Image Tag
+          invisible: true
+        api_asm_plus_image_repo:
+          name: api_asm_plus_image_repo
+          title: Api Asm Plus Image Repo
+          invisible: true
+        api_asm_plus_image_tag:
+          name: api_asm_plus_image_tag
+          title: Api Asm Plus Image Tag
+          invisible: true
+        api_auth_image_repo:
+          name: api_auth_image_repo
+          title: Api Auth Image Repo
+          invisible: true
+        api_auth_image_tag:
+          name: api_auth_image_tag
+          title: Api Auth Image Tag
+          invisible: true
+        api_sap_image_repo:
+          name: api_sap_image_repo
+          title: Api Sap Image Repo
+          invisible: true
+        api_sap_image_tag:
+          name: api_sap_image_tag
+          title: Api Sap Image Tag
+          invisible: true
+        api_sf_image_repo:
+          name: api_sf_image_repo
+          title: Api Sf Image Repo
+          invisible: true
+        api_sf_image_tag:
+          name: api_sf_image_tag
+          title: Api Sf Image Tag
+          invisible: true
+        cloud_sql_proxy_image_repo:
+          name: cloud_sql_proxy_image_repo
+          title: Cloud Sql Proxy Image Repo
+          invisible: true
+        cloud_sql_proxy_image_tag:
+          name: cloud_sql_proxy_image_tag
+          title: Cloud Sql Proxy Image Tag
+          invisible: true
+        cloudsql_availability_type:
+          name: cloudsql_availability_type
+          title: Cloud SQL availability
+        cloudsql_database:
+          name: cloudsql_database
+          title: Cloudsql Database
+          level: 1
+        cloudsql_disk_size_gb:
+          name: cloudsql_disk_size_gb
+          title: Cloudsql Disk Size Gb
+          level: 1
+        cloudsql_instance_name:
+          name: cloudsql_instance_name
+          title: Cloudsql Instance Name
+          level: 1
+        cloudsql_tier:
+          name: cloudsql_tier
+          title: Cloud SQL tier
+        cloudsql_user:
+          name: cloudsql_user
+          title: Cloudsql User
+          level: 1
+        cluster_name:
+          name: cluster_name
+          title: GKE cluster name
+        dns_managed_zone_name:
+          name: dns_managed_zone_name
+          title: Cloud DNS managed zone
+          level: 1
+        domain_suffix:
+          name: domain_suffix
+          title: ASM+ DNS suffix
+          subtext: Delegated DNS suffix, such as asmplus.example.com.
+        enable_sap_business_api:
+          name: enable_sap_business_api
+          title: Enable SAP Business API
+          level: 1
+        enable_successfactors_api:
+          name: enable_successfactors_api
+          title: Enable SAP SuccessFactors API
+          level: 1
+        front_asm_plus_image_repo:
+          name: front_asm_plus_image_repo
+          title: Front Asm Plus Image Repo
+          invisible: true
+        front_asm_plus_image_tag:
+          name: front_asm_plus_image_tag
+          title: Front Asm Plus Image Tag
+          invisible: true
+        front_auth_image_repo:
+          name: front_auth_image_repo
+          title: Front Auth Image Repo
+          invisible: true
+        front_auth_image_tag:
+          name: front_auth_image_tag
+          title: Front Auth Image Tag
+          invisible: true
+        front_viewer_image_repo:
+          name: front_viewer_image_repo
+          title: Front Viewer Image Repo
+          invisible: true
+        front_viewer_image_tag:
+          name: front_viewer_image_tag
+          title: Front Viewer Image Tag
+          invisible: true
+        gcs_bucket_name:
+          name: gcs_bucket_name
+          title: Gcs Bucket Name
+          level: 1
+        gcs_force_destroy:
+          name: gcs_force_destroy
+          title: Gcs Force Destroy
+          level: 1
+        helm_chart_name:
+          name: helm_chart_name
+          title: Helm Chart Name
+          invisible: true
+        helm_chart_repo:
+          name: helm_chart_repo
+          title: Helm Chart Repo
+          invisible: true
+        helm_chart_version:
+          name: helm_chart_version
+          title: Helm Chart Version
+          invisible: true
+        helm_release_name:
+          name: helm_release_name
+          title: Helm Release Name
+          level: 1
+        helm_timeout_seconds:
+          name: helm_timeout_seconds
+          title: Helm Timeout Seconds
+          level: 1
+        manage_dns_records:
+          name: manage_dns_records
+          title: Manage Cloud DNS records
+          level: 1
+        marketplace_consumption_label:
+          name: marketplace_consumption_label
+          title: Marketplace Consumption Label
+          invisible: true
+        marketplace_service_level:
+          name: marketplace_service_level
+          title: Marketplace Service Level
+          invisible: true
+        marketplace_service_name:
+          name: marketplace_service_name
+          title: Marketplace Service Name
+          invisible: true
+        max_nodes:
+          name: max_nodes
+          title: Maximum nodes
+        min_nodes:
+          name: min_nodes
+          title: Minimum nodes
+        namespace:
+          name: namespace
+          title: Namespace
+          level: 1
+        network_name:
+          name: network_name
+          title: Network Name
+          level: 1
+        node_disk_size_gb:
+          name: node_disk_size_gb
+          title: Node Disk Size Gb
+          level: 1
+        node_machine_type:
+          name: node_machine_type
+          title: GKE node machine type
+          xGoogleProperty:
+            type: ET_GCE_MACHINE_TYPE
+            zoneProperty: zone
+            gceMachineType:
+              minCpu: 2
+        node_pool_name:
+          name: node_pool_name
+          title: Node Pool Name
+          level: 1
+        pods_cidr:
+          name: pods_cidr
+          title: Pods Cidr
+          level: 1
+        postgres_image_repo:
+          name: postgres_image_repo
+          title: Postgres Image Repo
+          invisible: true
+        postgres_image_tag:
+          name: postgres_image_tag
+          title: Postgres Image Tag
+          invisible: true
+        private_services_prefix_length:
+          name: private_services_prefix_length
+          title: Private Services Prefix Length
+          level: 1
+        project_id:
+          name: project_id
+          title: Project ID
+          invisible: true
+        region:
+          name: region
+          title: Region
+          xGoogleProperty:
+            type: ET_GCE_REGION
+        sap_basic_auth_users_json:
+          name: sap_basic_auth_users_json
+          title: SAP Business API credential JSON
+          invisible: true
+        services_cidr:
+          name: services_cidr
+          title: Services Cidr
+          level: 1
+        sf_managed_users_json:
+          name: sf_managed_users_json
+          title: SAP SuccessFactors API managed users JSON
+          invisible: true
+        subnetwork_cidr:
+          name: subnetwork_cidr
+          title: Subnetwork Cidr
+          level: 1
+        subnetwork_name:
+          name: subnetwork_name
+          title: Subnetwork Name
+          level: 1
+        zone:
+          name: zone
+          title: GKE zone
+          xGoogleProperty:
+            type: ET_GCE_ZONE

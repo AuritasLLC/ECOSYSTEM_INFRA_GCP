@@ -1,0 +1,260 @@
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: asm-plus
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  info:
+    title: ASM+
+    source:
+      sourceType: git
+      repo: https://github.com/AuritasLLC/ECOSYSTEM_INFRA_GCP
+    actuationTool:
+      flavor: Terraform
+      version: ">= 1.10.0, < 2.0.0"
+    description:
+      tagline: Deploy ASM+ into a dedicated GKE environment with private Cloud SQL.
+  content: {}
+  interfaces:
+    variables:
+      - name: project_id
+        description: Customer GCP project where ASM+ is deployed. Marketplace supplies this value.
+        varType: string
+        required: true
+      - name: region
+        description: Region for regional ASM+ resources.
+        varType: string
+        defaultValue: us-east1
+      - name: zone
+        description: Zone for the dedicated GKE cluster.
+        varType: string
+        defaultValue: us-east1-b
+      - name: domain_suffix
+        description: Delegated DNS suffix for the required and enabled ASM+ endpoints, for example asmplus.example.com.
+        varType: string
+        required: true
+      - name: admin_email
+        description: Initial ASM+ superadministrator email.
+        varType: string
+        required: true
+      - name: network_name
+        description: Dedicated VPC name.
+        varType: string
+        defaultValue: asmplus-vpc
+      - name: subnetwork_name
+        description: Dedicated GKE subnet name.
+        varType: string
+        defaultValue: asmplus-gke-subnet
+      - name: subnetwork_cidr
+        description: Primary GKE node CIDR.
+        varType: string
+        defaultValue: 10.20.0.0/20
+      - name: pods_cidr
+        description: Secondary GKE Pod CIDR.
+        varType: string
+        defaultValue: 10.24.0.0/14
+      - name: services_cidr
+        description: Secondary GKE Service CIDR.
+        varType: string
+        defaultValue: 10.28.0.0/20
+      - name: private_services_prefix_length
+        description: Prefix length reserved for private service access.
+        varType: number
+        defaultValue: 16
+      - name: cluster_name
+        description: Dedicated GKE cluster name.
+        varType: string
+        defaultValue: asmplus-gke
+      - name: node_pool_name
+        description: GKE node pool name.
+        varType: string
+        defaultValue: asmplus-pool
+      - name: node_machine_type
+        description: x86 GKE node machine type.
+        varType: string
+        defaultValue: e2-standard-4
+      - name: node_disk_size_gb
+        description: Boot disk size for each GKE node.
+        varType: number
+        defaultValue: 100
+      - name: min_nodes
+        description: Minimum GKE nodes.
+        varType: number
+        defaultValue: 1
+      - name: max_nodes
+        description: Maximum GKE nodes.
+        varType: number
+        defaultValue: 4
+      - name: namespace
+        description: Kubernetes namespace for ASM+.
+        varType: string
+        defaultValue: asm-plus
+      - name: helm_release_name
+        description: Helm release name for the application workloads.
+        varType: string
+        defaultValue: asm-plus
+      - name: helm_chart_repo
+        description: OCI Helm repository supplied by Cloud Marketplace.
+        varType: string
+        defaultValue: oci://us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus
+      - name: helm_chart_name
+        description: Helm chart name supplied by Cloud Marketplace.
+        varType: string
+        defaultValue: ecosystem
+      - name: helm_chart_version
+        description: Helm chart version supplied by Cloud Marketplace.
+        varType: string
+        defaultValue: 1.0.0
+      - name: helm_timeout_seconds
+        description: Maximum time for Helm migrations and application installation.
+        varType: number
+        defaultValue: 1800
+      - name: gcs_bucket_name
+        description: Globally unique bucket for ASM+ binary objects. Empty derives a stable name from project_id.
+        varType: string
+        defaultValue: ""
+      - name: gcs_force_destroy
+        description: Allow deletion of a non-empty ASM+ data bucket. Keep false to protect customer data.
+        varType: bool
+        defaultValue: false
+      - name: cloudsql_instance_name
+        description: Cloud SQL PostgreSQL instance name.
+        varType: string
+        defaultValue: asmplus-postgres
+      - name: cloudsql_database
+        description: ASM+ database name.
+        varType: string
+        defaultValue: auritasdemo
+      - name: cloudsql_user
+        description: ASM+ database user.
+        varType: string
+        defaultValue: auritas
+      - name: cloudsql_tier
+        description: Cloud SQL machine tier.
+        varType: string
+        defaultValue: db-custom-2-7680
+      - name: cloudsql_availability_type
+        description: Cloud SQL availability type.
+        varType: string
+        defaultValue: ZONAL
+      - name: cloudsql_disk_size_gb
+        description: Initial Cloud SQL SSD disk size.
+        varType: number
+        defaultValue: 20
+      - name: manage_dns_records
+        description: Create DNS records in an existing Cloud DNS managed zone.
+        varType: bool
+        defaultValue: false
+      - name: dns_managed_zone_name
+        description: Cloud DNS managed zone name when manage_dns_records is true.
+        varType: string
+      - name: enable_sap_business_api
+        description: Deploy the optional SAP Business API workload.
+        varType: bool
+        defaultValue: false
+      - name: enable_successfactors_api
+        description: Deploy the optional SAP SuccessFactors API workload.
+        varType: bool
+        defaultValue: false
+      - name: sap_basic_auth_users_json
+        description: Sensitive JSON consumed by the optional SAP Business API. Prefer post-deployment Secret Manager configuration because a supplied value is retained in Terraform state.
+        varType: string
+        defaultValue: "{}"
+      - name: sf_managed_users_json
+        description: Sensitive JSON consumed by the optional SAP SuccessFactors API. Prefer post-deployment Secret Manager configuration because a supplied value is retained in Terraform state.
+        varType: string
+        defaultValue: "{}"
+      - name: marketplace_consumption_label
+        description: goog-partner-solution value assigned to ASM+ in Producer Portal.
+        varType: string
+        defaultValue: isol_plb32_0014m00001irgbqqaq_g4sz646dffwwygzqyiappxoc7q5x4tjk
+      - name: marketplace_service_name
+        description: Marketplace service name assigned to ASM+ in Producer Portal.
+        varType: string
+        defaultValue: asm-plus.endpoints.auritas-asmplus-public.cloud.goog
+      - name: marketplace_service_level
+        description: Marketplace service level for usage-based pricing.
+        varType: string
+        defaultValue: default
+      - name: api_asm_image_repo
+        varType: string
+        defaultValue: us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/api-asm
+      - name: api_asm_image_tag
+        varType: string
+        defaultValue: "1.0"
+      - name: api_auth_image_repo
+        varType: string
+        defaultValue: us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/api-auth
+      - name: api_auth_image_tag
+        varType: string
+        defaultValue: "1.0"
+      - name: api_asm_plus_image_repo
+        varType: string
+        defaultValue: us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/api-asm-plus
+      - name: api_asm_plus_image_tag
+        varType: string
+        defaultValue: "1.0"
+      - name: front_auth_image_repo
+        varType: string
+        defaultValue: us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/front-auth
+      - name: front_auth_image_tag
+        varType: string
+        defaultValue: "1.0"
+      - name: front_asm_plus_image_repo
+        varType: string
+        defaultValue: us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/front-asm-plus
+      - name: front_asm_plus_image_tag
+        varType: string
+        defaultValue: "1.0"
+      - name: front_viewer_image_repo
+        varType: string
+        defaultValue: us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/front-viewer
+      - name: front_viewer_image_tag
+        varType: string
+        defaultValue: "1.0"
+      - name: api_sap_image_repo
+        varType: string
+        defaultValue: us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/api-sap
+      - name: api_sap_image_tag
+        varType: string
+        defaultValue: "1.0"
+      - name: api_sf_image_repo
+        varType: string
+        defaultValue: us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/api-sf
+      - name: api_sf_image_tag
+        varType: string
+        defaultValue: "1.0"
+      - name: cloud_sql_proxy_image_repo
+        varType: string
+        defaultValue: us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/cloud-sql-proxy
+      - name: cloud_sql_proxy_image_tag
+        varType: string
+        defaultValue: "1.0"
+      - name: postgres_image_repo
+        varType: string
+        defaultValue: us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/postgres
+      - name: postgres_image_tag
+        varType: string
+        defaultValue: "1.0"
+    outputs:
+      - name: application_urls
+        description: ASM+ HTTPS endpoints.
+      - name: cloudsql_instance_name
+        description: ASM+ Cloud SQL instance name.
+      - name: dns_records
+        description: DNS A records that must point to ingress_ip when manage_dns_records is false.
+      - name: gcs_bucket_name
+        description: Private ASM+ binary bucket.
+      - name: generated_credentials_notice
+        description: How to retrieve generated runtime credentials.
+      - name: gke_cluster_location
+        description: Dedicated ASM+ GKE cluster location.
+      - name: gke_cluster_name
+        description: Dedicated ASM+ GKE cluster name.
+      - name: ingress_ip
+        description: Global IPv4 address for ASM+ endpoints.
+      - name: namespace
+        description: ASM+ Kubernetes namespace.
+      - name: project_id
+        description: Customer GCP project containing ASM+.

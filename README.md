@@ -29,12 +29,14 @@ SuccessFactors connectors integrate with customer-approved systems and
 credentials.
 
 - [Deployment and User Guide](docs/USER_GUIDE.md)
+- [Terraform module](terraform/README.md)
 - [Example Infrastructure Manager inputs](examples/asm-plus.tfvars.example)
+- [Third-party component inventory](docs/THIRD_PARTY_COMPONENTS.md)
 - [Security and support](SECURITY.md)
 
-The deployable Terraform module, Helm chart, and container images are released
-and validated through Google Cloud Marketplace. This repository does not
-contain credentials, customer data, Terraform state, or private application
-source code.
+The deployable Terraform module, Helm chart, and container images are
+versioned and validated as part of the Google Cloud Marketplace release
+process. This repository does not contain credentials, customer data,
+Terraform state, or private application source code.
 
 Copyright Auritas LLC. All rights reserved.

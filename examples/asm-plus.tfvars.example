@@ -18,11 +18,12 @@ cloudsql_disk_size_gb      = 20
 manage_dns_records   = false
 dns_managed_zone_name = null
 
-# The initial release enables or disables the two integration workloads
-# together: SAP Business API and SAP SuccessFactors API.
-enable_optional_modules = false
+# Enable either integration workload independently when required.
+enable_sap_business_api   = false
+enable_successfactors_api = false
 
-# These inputs are sensitive when populated. Keep them in the protected local
-# copy only. Empty JSON objects are safe defaults when integrations are off.
+# These inputs are retained in Terraform state when populated. Leave the safe
+# defaults here and configure approved connector credentials through Secret
+# Manager after deployment whenever possible.
 sap_basic_auth_users_json = "{}"
 sf_managed_users_json     = "{}"
