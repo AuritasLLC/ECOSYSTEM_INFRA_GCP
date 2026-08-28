@@ -24,7 +24,7 @@ global:
       apiSap: api-sap.${domain_suffix}
       apiSf: api-sf.${domain_suffix}
       viewer: viewer.${domain_suffix}
-    
+
     tls:
       enabled: true
       managedCertificateName: ${managed_certificate_name}
@@ -153,7 +153,7 @@ asm-plus-api:
       memory: 256Mi
     limits:
       cpu: 500m
-      memory: 1Gi  
+      memory: 1Gi
   config:
     NODE_ENV: production
     HOST: 0.0.0.0
@@ -297,7 +297,7 @@ front-asm-plus:
       memory: 128Mi
     limits:
       cpu: 250m
-      memory: 512Mi  
+      memory: 512Mi
   config:
     PORT: "8080"
     APP_NAME: ASM+
