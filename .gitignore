@@ -1,0 +1,18 @@
+# Never publish deployment state or customer-specific inputs.
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+.terraform/
+.terraform.lock.hcl
+.env
+.env.*
+*.pem
+*.key
+credentials*.json
+secrets/
+
+# Local tooling and operating-system files.
+.DS_Store
+Thumbs.db
+*.log
