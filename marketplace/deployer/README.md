@@ -1,20 +1,36 @@
 # ASM+ Helm deployer source
 
-The `chart/ecosystem` directory is the candidate ASM+ Helm chart imported from
-the validated Terraform Kubernetes deployment. It is a starting point, not yet
-a valid Standard Kubernetes Marketplace deployer.
+This directory builds the pre-submission ASM+ Standard Kubernetes deployer.
+The deployer uses Google's Helm deployer base, embeds `chart/ecosystem`, and
+exposes all ten runtime images through `schema.yaml`.
 
-Do not build or publish a deployer image until the following values are known
-and applied consistently:
+Published candidate:
 
-- Producer Portal partner ID.
-- New Standard Kubernetes product/solution ID.
-- New product service name.
-- Artifact Registry image root.
-- Release track and exact release version.
-- BYOL license acquisition and validation contract.
-- Verification database, object storage, and Workload Identity inputs.
+```text
+us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/deployer:1.0.0
+sha256:35024f26ab919514acc5fec65f757cad49662faa6c786bd124e95272e2cb07ca
+```
 
-After those decisions, add the final `schema.yaml`, deployer `Dockerfile`, and
-`data-test` overlay, then run local `mpdev verify` before submitting images in
-Producer Portal.
+The `1.0` tag resolves to the same digest. Artifact Analysis completed with
+zero critical and zero high-severity findings on 31 August 2026.
+
+Build locally:
+
+```powershell
+docker build `
+  --build-arg REGISTRY=us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace `
+  --build-arg TAG=1.0.0 `
+  --tag us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/deployer:1.0.0 `
+  marketplace/deployer
+```
+
+Validate the embedded Marketplace schema:
+
+```powershell
+docker run --rm --entrypoint /bin/validate_schema.py `
+  us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/deployer:1.0.0
+```
+
+This image is published for integration work, not yet for Google review. Before
+submitting it in Producer Portal, complete the `data-test` overlay, Tester Pod,
+BYOL license contract, open-source license decision, and local `mpdev verify`.

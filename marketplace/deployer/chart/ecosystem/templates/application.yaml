@@ -3,6 +3,9 @@ apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
   name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    marketplace.cloud.google.com/deploy-info: '{"partner_id":"auritas","product_id":"asm-plus","partner_name":"Auritas LLC"}'
   labels:
     app.kubernetes.io/name: asm-plus
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -46,8 +49,6 @@ spec:
       kind: ConfigMap
     - group: ""
       kind: Secret
-    - group: ""
-      kind: ServiceAccount
     - group: networking.k8s.io
       kind: Ingress
     - group: networking.gke.io

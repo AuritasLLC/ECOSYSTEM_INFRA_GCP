@@ -28,7 +28,7 @@ spec:
         goog-partner-solution: {{ . | quote }}
         {{- end }}
     spec:
-      serviceAccountName: {{ .Values.serviceAccountName | default "asm-api" }}
+      serviceAccountName: {{ required "global.cloudSql.serviceAccount.name is required" .Values.global.cloudSql.serviceAccount.name }}
       terminationGracePeriodSeconds: 30
       containers:
         - name: asm-api
