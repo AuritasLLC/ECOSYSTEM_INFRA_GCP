@@ -1,0 +1,73 @@
+global:
+  projectId: ""
+  region: ""
+  namespace: asm-plus-demo
+  bucketName: ""
+  existingSecret: asmplus-runtime-secrets
+  marketplace:
+    consumptionLabel: ""
+    serviceName: ""
+    serviceLevel: default
+  applicationResource:
+    enabled: true
+  ingress:
+    enabled: false
+    staticIpName: ""
+    allowHttp: false
+    frontendConfigName: ""
+    hosts:
+      auth: ""
+      apiAuth: ""
+      app: ""
+      apiAsmPlus: ""
+      apiSap: ""
+      apiSf: ""
+      viewer: ""
+    tls:
+      enabled: false
+      managedCertificateName: ""
+  cloudSql:
+    enabled: false
+    instanceConnectionName: ""
+    privateIp: true
+    serviceAccount:
+      name: ""
+      gsaEmail: ""
+    proxy:
+      repository: ""
+      tag: ""
+      port: 5432
+      resources: {}
+
+postgresql:
+  enabled: false
+
+asm-api:
+  enabled: false
+
+auth-api:
+  enabled: false
+
+asm-plus-api:
+  enabled: false
+
+front-auth:
+  enabled: false
+
+front-asm-plus:
+  enabled: false
+
+front-viewer:
+  enabled: false
+
+migrations:
+  auth:
+    enabled: false
+  asmPlus:
+    enabled: false
+
+api-sap:
+  enabled: false
+
+api-sf:
+  enabled: false

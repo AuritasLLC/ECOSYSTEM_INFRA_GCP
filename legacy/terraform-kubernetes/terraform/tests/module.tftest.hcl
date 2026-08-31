@@ -83,6 +83,16 @@ run "marketplace_single_apply_plan" {
     condition     = length(local.hostnames) == 5 && !contains(keys(local.hostnames), "api_sap") && !contains(keys(local.hostnames), "api_sf")
     error_message = "Disabled optional connectors must not publish DNS records or application URLs."
   }
+
+  assert {
+    condition     = strcontains(local.rendered_application_values, "serviceName: \"asm-plus.endpoints.auritas-asmplus-public.cloud.goog\"")
+    error_message = "The application Helm values must include the assigned Marketplace service name."
+  }
+
+  assert {
+    condition     = strcontains(local.rendered_application_values, "consumptionLabel: \"isol_plb32_0014m00001irgbqqaq_g4sz646dffwwygzqyiappxoc7q5x4tjk\"")
+    error_message = "The application Helm values must include the assigned Marketplace consumption label."
+  }
 }
 
 run "successfactors_connector_only_plan" {

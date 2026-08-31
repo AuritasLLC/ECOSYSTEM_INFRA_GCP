@@ -1,0 +1,14 @@
+{{- if .Values.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: asm-api-config
+  labels:
+    app.kubernetes.io/name: asm-api
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: storage-api
+data:
+{{- range $key, $value := .Values.config }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}
+{{- end }}

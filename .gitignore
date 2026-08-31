@@ -4,7 +4,7 @@
 *.tfvars
 !*.tfvars.example
 .terraform/
-!terraform/marketplace_test.tfvars
+!legacy/terraform-kubernetes/terraform/marketplace_test.tfvars
 .env
 .env.*
 *.pem
