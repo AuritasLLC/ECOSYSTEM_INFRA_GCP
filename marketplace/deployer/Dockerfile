@@ -21,6 +21,16 @@ FROM gcr.io/cloud-marketplace-tools/k8s/deployer_helm/onbuild@sha256:6a6d705987b
 COPY --from=kubectl-builder /out/kubectl /opt/kubectl/v1.36/kubectl
 COPY --from=helm-builder /out/helm /usr/local/bin/helm
 
+# Google Marketplace Verification overlays /data-test on /data. The test
+# profile runs one real ASM+ frontend and verifies its in-cluster health
+# endpoint without requiring customer Cloud SQL, Cloud Storage, DNS, or
+# secrets.
+COPY test/schema.yaml /data-test/schema.yaml
+COPY test/chart /tmp/asmplus-test-overlay/chart
+RUN mkdir -p /data-test/chart \
+    && tar -C /tmp/asmplus-test-overlay -czf /data-test/chart/chart.tar.gz chart \
+    && rm -rf /tmp/asmplus-test-overlay
+
 LABEL org.opencontainers.image.title="Auritas Storage Manager (ASM+) Marketplace deployer" \
       org.opencontainers.image.vendor="Auritas LLC" \
       org.opencontainers.image.version="1.0.0" \

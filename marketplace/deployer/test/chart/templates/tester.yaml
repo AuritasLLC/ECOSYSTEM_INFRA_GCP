@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-tester"
+  labels:
+    app.kubernetes.io/name: "{{ .Release.Name }}"
+    app.kubernetes.io/instance: "{{ .Release.Name }}"
+    app.kubernetes.io/component: marketplace-verification
+  annotations:
+    helm.sh/hook: test-success
+spec:
+  restartPolicy: Never
+  containers:
+    - name: tester
+      image: "{{ required "front-auth image.repository is required" (index .Values "front-auth").image.repository }}:{{ required "front-auth image.tag is required" (index .Values "front-auth").image.tag }}"
+      imagePullPolicy: IfNotPresent
+      command:
+        - /bin/sh
+        - -ec
+      args:
+        - |
+          for attempt in $(seq 1 30); do
+            if wget -qO /tmp/health http://front-auth/health; then
+              cat /tmp/health
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "ASM+ authentication frontend health check failed" >&2
+          exit 1
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi

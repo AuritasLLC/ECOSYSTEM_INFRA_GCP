@@ -83,13 +83,6 @@ properties:
     default: asm-plus
     x-google-marketplace:
       type: NAMESPACE
-  application_uid:
-    type: string
-    x-google-marketplace:
-      type: APPLICATION_UID
-      applicationUid:
-        generatedProperties:
-          createApplicationBoolean: global.applicationResource.enabled
   marketplace-integration.image:
     type: string
     x-google-marketplace:
@@ -172,69 +165,48 @@ properties:
 
   asm-api.image.repository:
     type: string
-    default: $REGISTRY/asmplus/api-asm
   asm-api.image.tag:
     type: string
-    default: $TAG
   auth-api.image.repository:
     type: string
-    default: $REGISTRY/asmplus/api-auth
   auth-api.image.tag:
     type: string
-    default: $TAG
   asm-plus-api.image.repository:
     type: string
-    default: $REGISTRY/asmplus/api-asm-plus
   asm-plus-api.image.tag:
     type: string
-    default: $TAG
   front-auth.image.repository:
     type: string
-    default: $REGISTRY/asmplus/front-auth
   front-auth.image.tag:
     type: string
-    default: $TAG
   front-asm-plus.image.repository:
     type: string
-    default: $REGISTRY/asmplus/front-asm-plus
   front-asm-plus.image.tag:
     type: string
-    default: $TAG
   front-viewer.image.repository:
     type: string
-    default: $REGISTRY/asmplus/front-viewer
   front-viewer.image.tag:
     type: string
-    default: $TAG
   api-sap.image.repository:
     type: string
-    default: $REGISTRY/asmplus/api-sap
   api-sap.image.tag:
     type: string
-    default: $TAG
   api-sf.image.repository:
     type: string
-    default: $REGISTRY/asmplus/api-sf
   api-sf.image.tag:
     type: string
-    default: $TAG
   global.cloudSql.proxy.repository:
     type: string
-    default: $REGISTRY/asmplus/cloud-sql-proxy
   global.cloudSql.proxy.tag:
     type: string
-    default: $TAG
   postgresql.image.repository:
     type: string
-    default: $REGISTRY/asmplus/postgres
   postgresql.image.tag:
     type: string
-    default: $TAG
 
 required:
   - name
   - namespace
-  - application_uid
   - marketplace-integration.image
   - global.projectId
   - global.region
@@ -242,26 +214,6 @@ required:
   - global.existingSecret
   - global.cloudSql.instanceConnectionName
   - global.cloudSql.serviceAccount.name
-  - asm-api.image.repository
-  - asm-api.image.tag
-  - auth-api.image.repository
-  - auth-api.image.tag
-  - asm-plus-api.image.repository
-  - asm-plus-api.image.tag
-  - front-auth.image.repository
-  - front-auth.image.tag
-  - front-asm-plus.image.repository
-  - front-asm-plus.image.tag
-  - front-viewer.image.repository
-  - front-viewer.image.tag
-  - api-sap.image.repository
-  - api-sap.image.tag
-  - api-sf.image.repository
-  - api-sf.image.tag
-  - global.cloudSql.proxy.repository
-  - global.cloudSql.proxy.tag
-  - postgresql.image.repository
-  - postgresql.image.tag
 
 form:
   - widget: help

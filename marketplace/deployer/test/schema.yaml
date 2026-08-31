@@ -1,0 +1,52 @@
+properties:
+  global.projectId:
+    type: string
+    default: marketplace-verification
+  global.region:
+    type: string
+    default: us-central1
+  global.bucketName:
+    type: string
+    default: asmplus-verification
+  global.existingSecret:
+    type: string
+    default: asmplus-verification-secrets
+  global.cloudSql.instanceConnectionName:
+    type: string
+    default: marketplace-verification:us-central1:unused
+  global.cloudSql.enabled:
+    type: boolean
+    default: false
+  postgresql.enabled:
+    type: boolean
+    default: false
+  asm-api.enabled:
+    type: boolean
+    default: false
+  auth-api.enabled:
+    type: boolean
+    default: false
+  asm-plus-api.enabled:
+    type: boolean
+    default: false
+  front-auth.enabled:
+    type: boolean
+    default: true
+  front-asm-plus.enabled:
+    type: boolean
+    default: false
+  front-viewer.enabled:
+    type: boolean
+    default: false
+  migrations.auth.enabled:
+    type: boolean
+    default: false
+  migrations.asmPlus.enabled:
+    type: boolean
+    default: false
+  api-sap.enabled:
+    type: boolean
+    default: false
+  api-sf.enabled:
+    type: boolean
+    default: false

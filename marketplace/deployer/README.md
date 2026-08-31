@@ -8,18 +8,25 @@ Published candidate:
 
 ```text
 us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/deployer:1.0.0
-sha256:35024f26ab919514acc5fec65f757cad49662faa6c786bd124e95272e2cb07ca
+sha256:62fa44cd72deaab884c9fe42546821861a2c7a5dddfe722d5946507b31e89983
 ```
 
-The `1.0` tag resolves to the same digest. Artifact Analysis completed with
-zero critical and zero high-severity findings on 31 August 2026.
+The `1.0` tag resolves to the same digest. Producer Portal completed schema
+extraction, test deployment, functional verification, cleanup, and its
+vulnerability gate successfully on 31 August 2026.
 
-Build locally:
+Build and publish a single `linux/amd64` manifest. Producer Portal reads
+`/data/schema.yaml` from the deployer image and must not be given a multi-image
+OCI index with separate provenance or SBOM attestations.
 
 ```powershell
-docker build `
-  --build-arg REGISTRY=us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace `
-  --build-arg TAG=1.0.0 `
+docker buildx build `
+  --platform linux/amd64 `
+  --provenance=false `
+  --sbom=false `
+  --output "type=registry,oci-mediatypes=true" `
+  --annotation "manifest:com.googleapis.cloudmarketplace.product.service.name=services/asm-plus.endpoints.auritas-asmplus-public.cloud.goog" `
+  --tag us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/deployer:1.0 `
   --tag us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/deployer:1.0.0 `
   marketplace/deployer
 ```
@@ -31,6 +38,9 @@ docker run --rm --entrypoint /bin/validate_schema.py `
   us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/deployer:1.0.0
 ```
 
-This image is published for integration work, not yet for Google review. Before
-submitting it in Producer Portal, complete the `data-test` overlay, Tester Pod,
-BYOL license contract, open-source license decision, and local `mpdev verify`.
+The image includes `/data-test/schema.yaml` plus a Helm test overlay. Google
+Marketplace Verification deploys one real ASM+ frontend and executes an
+in-cluster HTTP health check without requiring customer infrastructure.
+
+Before submitting the release for Google review, complete the BYOL license
+contract and the internal open-source license decision.

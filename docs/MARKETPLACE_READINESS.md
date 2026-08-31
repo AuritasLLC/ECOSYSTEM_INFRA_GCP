@@ -28,13 +28,15 @@ required item remains open.
 - Candidate deployer `1.0.0` and track tag `1.0` are published at
   `us-docker.pkg.dev/auritas-asmplus-public/asmplus-marketplace/asmplus/deployer`.
   Both resolve to digest
-  `sha256:35024f26ab919514acc5fec65f757cad49662faa6c786bd124e95272e2cb07ca`.
-- Artifact Analysis completed for that digest with zero critical and zero high
-  severity findings. The Google deployer tools were rebuilt with Go 1.26.6 and
-  Helm's ORAS dependency was updated to 2.6.2 to remove the fixable findings in
-  the pinned official base.
+  `sha256:62fa44cd72deaab884c9fe42546821861a2c7a5dddfe722d5946507b31e89983`.
+- The deployer is a single `linux/amd64` OCI manifest with the required
+  Marketplace service-name annotation. It includes `/data-test`, a real ASM+
+  frontend, a Tester Pod, and an unconditional `Application` resource.
+- Producer Portal completed schema extraction, test deployment, functional
+  verification, cleanup, and its vulnerability gate successfully for that
+  digest on 31 August 2026.
 
-## Required before linking the deployer in Producer Portal
+## Remaining governance and production-hardening items
 
 - Confirm with the Google partner engineer that the schema `partnerId` value is
   `auritas`; Producer Portal does not display this identifier in its product UI.
@@ -46,9 +48,6 @@ required item remains open.
   validation, renewal, and error handling.
 - Confirm the production and verification database profile: customer-managed
   Cloud SQL versus the chart's optional in-cluster PostgreSQL subchart.
-- Define how Marketplace Verification receives a working Cloud Storage bucket
-  and a Workload Identity-enabled Kubernetes service account. ASM Storage API
-  does not have a local filesystem storage backend.
 - Prefix every namespaced Kubernetes resource with the customer-selected
   application name. The imported chart still contains fixed resource names and
   therefore cannot safely install two ASM+ instances in one namespace.
@@ -57,12 +56,8 @@ required item remains open.
 
 ## Required before submission
 
-- Add a functional Tester Pod and `/data-test/schema.yaml`.
 - Render and test every supported configuration; the customer production
   profile currently passes `helm lint` and `helm template`.
-- Build and scan every application image and the deployer image.
-- Run local Marketplace verification with `mpdev verify`, proving installation,
-  functional tests, and uninstallation.
 - Verify all Pods run as the expected non-root user where supported and that
   image references resolve to immutable digests.
 - Complete legal review of third-party licenses and notices.
