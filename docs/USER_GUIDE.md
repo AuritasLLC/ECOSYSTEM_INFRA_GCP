@@ -6,7 +6,7 @@ This guide covers the installation and operation of **Auritas Storage Manager
 - Publisher: Auritas LLC
 - Pricing model: Bring Your Own License (BYOL)
 - Support: [Auritas contact page](https://www.auritas.com/contact-us/) or
-  `connect@auritas.com`
+  `sales@auritas.com`
 - Marketplace listing: added here after the Standard Kubernetes product is
   approved and published
 
